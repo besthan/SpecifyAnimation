@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script src="jquery-1.7.2.min.js"></script>
+<script>
+$(function(){
+		$("#mybtn").click(function(e) {
+
+			var oper = $("#operDiv :radio:checked").val();
+			/*
+			val()方法，取得元素的值。  val == value 
+			var oper = $("#operDiv :radio: checked").val();
+			*/
+			var speed = $("#speedDiv :radio:checked").val();
+			/*
+			关于用户自定义的速度的处理。
+			当用户点击自定义的时候，我们需要让文本框可以进行编辑。
+			*/
+			$("#showDiv").children()[oper]([speed]);
+			/*
+			[字符串]：动态创建的值如何直接性地使用到jQuery的方法链当中。
+			*/
+			
+        });
+		
+		$("#speedDiv").click(function(e) {
+            
+			$("#mytxt").attr('disabled',!$("#mycus").is(":checked"));
+			/*
+			$("#mytxt").attr('disabled',!$("#mycus").is(":checked"));
+			联动处理：
+			每点击一次所在区域的时候，都会进行一次检查。
+			*/
+        });
+		
+		/*
+		eventType:事件类型
+		为表单绑定一个事件，这个事件的触发会产生一个处理的机制。
+		当表单向外进行提交的时候，就会触发这个事件。因为为表单绑定了一个事件提交
+		
+		1:return false 放在哪儿;
+		*/
+		$("#myform").bind('submit',function(e){
+			var oper = $("#operDiv :radio:checked").val();
+			var speed = $("#speedDiv :radio:checked").val();
+			$("#showDiv").children()[oper]([speed]);
+		});
+})
+</script>
+
+</head>
+
+<body>
+
+<form action="" name="myform" id="myform">
+<div id="operDiv" style="width:600px;height:70px;margin:0px auto;border:1px solid #eee;">
+<fieldset>
+	<legend>操作方法</legend>
+    <input type="radio" value="show"  name="oper"/>Show()
+    <input type="radio" value="hide"  name="oper"/>Hide()
+    <input type="radio" value="fadeIn"  name="oper"/>FadeIn()
+    <input type="radio" value="fadeOut"  name="oper"/>FadeOut()
+    <input type="radio" value="slideUp"  name="oper"/>SlideUp()
+    <input type="radio" value="slideDown"  name="oper"/>SlideDown() 
+</fieldset>
+</div>
+
+<div id="speedDiv" style="width:600px;height:70px;margin:0px auto;border:1px solid #eee;">
+<fieldset>
+	<legend>操作速度</legend>
+    <input type="radio" value="slow"  name="speed"/>slow
+    <input type="radio" value="fast"  name="speed"/>fast
+    <input type="radio" value="custom"  name="speed" id="mycus"/>custom
+    <input type="text" disabled="disabled" style="width:80px;height:20px;border:1px solid #eee;" id="mytxt"/>
+	<!--disabled="disabled" 禁用页面当中的表单元素文本框-->
+</fieldset>
+</div>
+
+<div id="subDiv" style="width:600px;height:30px;margin:0px auto;border:1px solid #eee;">
+<input type="button" value="应用"  id="mybtn"/> 
+<input type="submit" value="恢复"  id="mysubmit"/>
+</div>
+
+<div id="showDiv" style="width:600px;height:100px;margin:0px auto;border:1px solid #eee;">
+<div style="width:90px;height:90px;background:red;float:left;"></div>
+<div style="width:90px;height:90px;background:green;float:left;"></div>
+<div style="width:90px;height:90px;background:orange;float:left;"></div>
+</div>
+</form>
+</body>
+
+
+</html>
